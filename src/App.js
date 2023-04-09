@@ -11,6 +11,8 @@ import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
 
 const App = () => {
   const theme = {
@@ -42,6 +44,11 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <GlobalStyle />
+        {/* Logi/Register */}
+        {/* <Routes>
+          <Route path="/auth/sign-in" element={<SignInPage></SignInPage>} />
+          <Route path="/auth/sign-up" element={<SignUpPage></SignUpPage>} />
+        </Routes> */}
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
