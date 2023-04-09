@@ -171,7 +171,8 @@ const Nav = () => {
             <NavLink
               to="/"
               className="navbar-link "
-              onClick={() => setMenuIcon(false)}>
+              onClick={() => setMenuIcon(false)}
+            >
               Home
             </NavLink>
           </li>
@@ -179,7 +180,8 @@ const Nav = () => {
             <NavLink
               to="/about"
               className="navbar-link "
-              onClick={() => setMenuIcon(false)}>
+              onClick={() => setMenuIcon(false)}
+            >
               About
             </NavLink>
           </li>
@@ -187,7 +189,8 @@ const Nav = () => {
             <NavLink
               to="/products"
               className="navbar-link "
-              onClick={() => setMenuIcon(false)}>
+              onClick={() => setMenuIcon(false)}
+            >
               Products
             </NavLink>
           </li>
@@ -195,8 +198,18 @@ const Nav = () => {
             <NavLink
               to="/contact"
               className="navbar-link "
-              onClick={() => setMenuIcon(false)}>
+              onClick={() => setMenuIcon(false)}
+            >
               Contact
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/addCart"
+              className="navbar-link "
+              onClick={() => setMenuIcon(false)}
+            >
+              Dashboard
             </NavLink>
           </li>
           <li>

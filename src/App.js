@@ -13,6 +13,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
+import AddCart from "./pages/AddCart";
 
 const App = () => {
   const theme = {
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/singleproduct/:id" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/addCart" element={<AddCart />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
