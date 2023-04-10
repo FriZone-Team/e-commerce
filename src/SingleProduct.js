@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useProductContext } from "./context/productcontex";
@@ -10,33 +10,26 @@ import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Star from "./components/Star";
 import AddToCart from "./components/AddToCart";
-
-const API = "https://api.pujakaitem.com/api/products";
+import { apiPrefix } from "./config";
+import axios from "axios";
 
 const SingleProduct = () => {
-  const { getSingleProduct, isSingleLoading, singleProduct } =
-    useProductContext();
-
+  const { products } = useProductContext();
   const { id } = useParams();
 
-  const {
-    id: alias,
-    name,
-    company,
-    price,
-    description,
-    category,
-    stock,
-    stars,
-    reviews,
-    image,
-  } = singleProduct;
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState({});
+
+  const { _id, name, company, price, description, category, image } = data;
 
   useEffect(() => {
-    getSingleProduct(`${API}?id=${id}`);
+    axios.get(`${apiPrefix}/products/${id}`).then((res) => {
+      setData(res.data);
+      setIsLoading(false);
+    });
   }, []);
 
-  if (isSingleLoading) {
+  if (isLoading) {
     return <div className="page_loading">Loading.....</div>;
   }
 
@@ -47,14 +40,12 @@ const SingleProduct = () => {
         <div className="grid grid-two-column">
           {/* product Images  */}
           <div className="product_images">
-            <MyImage imgs={image} />
+            <img src={image} alt={name} />
           </div>
 
-          {/* product dAta  */}
+          {/* product data  */}
           <div className="product-data">
             <h2>{name}</h2>
-            <Star stars={stars} reviews={reviews} />
-
             <p className="product-data-price">
               MRP:
               <del>
@@ -78,7 +69,7 @@ const SingleProduct = () => {
 
               <div className="product-warranty-data">
                 <TbTruckDelivery className="warranty-icon" />
-                <p>Thapa Delivered </p>
+                <p>Onion Delivered </p>
               </div>
 
               <div className="product-warranty-data">
@@ -89,18 +80,17 @@ const SingleProduct = () => {
 
             <div className="product-data-info">
               <p>
-                Available:
-                <span> {stock > 0 ? "In Stock" : "Not Available"}</span>
+                ID : <span> {_id} </span>
               </p>
               <p>
-                ID : <span> {id} </span>
+                Category :<span> {category} </span>
               </p>
               <p>
                 Brand :<span> {company} </span>
               </p>
             </div>
             <hr />
-            {stock > 0 && <AddToCart product={singleProduct} />}
+            <AddToCart product={products} />
           </div>
         </div>
       </Container>

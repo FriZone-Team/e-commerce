@@ -1,13 +1,30 @@
 import styled from "styled-components";
 import { useCartContext } from "./context/cart_context";
 import CartItem from "./components/CartItem";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { Button } from "./styles/Button";
 import FormatPrice from "./Helpers/FormatPrice";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { apiPrefix } from "./config";
 
 const Cart = () => {
   const { cart, clearCart, total_price, shipping_fee } = useCartContext();
   // console.log("🚀 ~ file: Cart.js ~ line 6 ~ Cart ~ cart", cart);
+
+  // data
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState({});
+  const { id } = useParams();
+
+  const { _id, name, company, price, description, category, image } = data;
+
+  useEffect(() => {
+    axios.get(`${apiPrefix}/products/${id}`).then((res) => {
+      setData(res.data);
+      setIsLoading(false);
+    });
+  }, []);
 
   if (cart.length === 0) {
     return (

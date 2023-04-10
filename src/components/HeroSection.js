@@ -13,9 +13,13 @@ const HeroSection = ({ myData }) => {
             <p className="intro-data">Welcome to </p>
             <h1> {name} </h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              atque temporibus veniam doloribus libero ad error omnis voluptates
-              animi! Suscipit sapiente.
+              An online e-commerce store is a virtual platform that enables
+              customers to shop and order products and services from vendors
+              over the internet. Customers can browse through products, compare
+              prices, and place orders from anywhere with just a few clicks.
+              E-commerce stores typically offer online payment options,
+              shipping, and customer support services to ensure customer
+              satisfaction.
             </p>
             <NavLink>
               <Button>show now</Button>

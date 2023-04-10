@@ -28,6 +28,7 @@ const SignUpPage = () => {
         <Field>
           <Label htmlFor="fullname">Fullname</Label>
           <Input
+            style={{ textTransform: "lowercase" }}
             type="text"
             name="fullname"
             placeholder="Enter your fullname"
@@ -37,6 +38,7 @@ const SignUpPage = () => {
         <Field>
           <Label htmlFor="email">Email address</Label>
           <Input
+            style={{ textTransform: "lowercase" }}
             type="email"
             name="email"
             placeholder="Enter your email"
@@ -45,7 +47,9 @@ const SignUpPage = () => {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <InputPasswordToggle></InputPasswordToggle>
+          <InputPasswordToggle
+            style={{ textTransform: "lowercase" }}
+          ></InputPasswordToggle>
         </Field>
         <div className="have-account">
           You already have an account?{" "}

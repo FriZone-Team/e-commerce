@@ -91,7 +91,7 @@ const FilterSection = () => {
         </form>
       </div>
 
-      <div className="filter-colors colors">
+      {/* <div className="filter-colors colors">
         <h3>Colors</h3>
 
         <div className="filter-color-style">
@@ -125,7 +125,7 @@ const FilterSection = () => {
             );
           })}
         </div>
-      </div>
+      </div> */}
 
       <div className="filter_price">
         <h3>Price</h3>

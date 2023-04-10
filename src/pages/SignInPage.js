@@ -48,6 +48,7 @@ const SignInPage = () => {
         <Field>
           <Label htmlFor="email">Email address</Label>
           <Input
+            style={{ textTransform: "lowercase" }}
             type="email"
             name="email"
             placeholder="Enter your email address"
@@ -65,6 +66,7 @@ const SignInPage = () => {
         <Field>
           <Label htmlFor="password">Password</Label>
           <InputPasswordToggle
+            style={{ textTransform: "lowercase" }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             // Enter

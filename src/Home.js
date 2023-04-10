@@ -5,7 +5,7 @@ import Trusted from "./components/Trusted";
 
 const Home = () => {
   const data = {
-    name: "Thapa Store",
+    name: "Onion Store",
   };
 
   return (

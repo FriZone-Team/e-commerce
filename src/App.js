@@ -46,17 +46,17 @@ const App = () => {
       <Router>
         <GlobalStyle />
         {/* Logi/Register */}
-        {/* <Routes>
+        <Routes>
           <Route path="/auth/sign-in" element={<SignInPage></SignInPage>} />
           <Route path="/auth/sign-up" element={<SignUpPage></SignUpPage>} />
-        </Routes> */}
+        </Routes>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/singleproduct/:id" element={<SingleProduct />} />
+          <Route path="/product/:id" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/addCart" element={<AddCart />} />
           <Route path="*" element={<ErrorPage />} />

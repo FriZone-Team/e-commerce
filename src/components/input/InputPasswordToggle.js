@@ -3,7 +3,7 @@ import IconEyeClose from "../icon/IconEyeClose";
 import IconEyeOpen from "../icon/IconEyeOpen";
 import Input from "./Input";
 
-const InputPasswordToggle = ({ value, onChange, onKeyPress }) => {
+const InputPasswordToggle = ({ value, onChange, onKeyPress, style }) => {
   const [togglePassword, setTogglePassword] = useState(false);
   return (
     <Fragment>
@@ -14,6 +14,7 @@ const InputPasswordToggle = ({ value, onChange, onKeyPress }) => {
         value={value}
         onChange={onChange}
         onKeyPress={onKeyPress}
+        style={style}
       >
         {/* Dùng children để UI code không cần className (input-icon) trùng nhau */}
         {!togglePassword ? (

@@ -1,6 +1,7 @@
 import { useProductContext } from "../context/productcontex";
 import styled from "styled-components";
 import Product from "./Product";
+import { NavLink } from "react-router-dom";
 
 const FeatureProduct = () => {
   const { isLoading, featureProducts } = useProductContext();
@@ -15,9 +16,56 @@ const FeatureProduct = () => {
         <div className="intro-data">Check Now!</div>
         <div className="common-heading">Our Feature Services</div>
         <div className="grid grid-three-column">
-          {featureProducts.map((curElem) => {
-            return <Product key={curElem.id} {...curElem} />;
-          })}
+          <NavLink to="/product/64335b51aee37336e2b202a0">
+            <div className="card">
+              <figure>
+                <img
+                  src="https://images.pexels.com/photos/1275229/pexels-photo-1275229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  alt=""
+                />
+                <figcaption className="caption">Mobile</figcaption>
+              </figure>
+
+              <div className="card-data">
+                <div className="card-data-flex">
+                  <h3>Iphone X</h3>
+                  <p className="card-data--price">6.000.000</p>
+                </div>
+              </div>
+            </div>
+          </NavLink>
+          <div className="card">
+            <figure>
+              <img
+                src="https://images.pexels.com/photos/3178938/pexels-photo-3178938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt=""
+              />
+              <figcaption className="caption">accessories</figcaption>
+            </figure>
+
+            <div className="card-data">
+              <div className="card-data-flex">
+                <h3>accessories</h3>
+                <p className="card-data--price">10.000.000</p>
+              </div>
+            </div>
+          </div>
+          <div className="card">
+            <figure>
+              <img
+                src="https://images.pexels.com/photos/51011/pexels-photo-51011.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt=""
+              />
+              <figcaption className="caption">WATCH</figcaption>
+            </figure>
+
+            <div className="card-data">
+              <div className="card-data-flex">
+                <h3>galaxy w20</h3>
+                <p className="card-data--price">3.000.000</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Wrapper>
