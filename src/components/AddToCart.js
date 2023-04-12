@@ -4,10 +4,12 @@ import { FaCheck } from "react-icons/fa";
 import CartAmountToggle from "./CartAmountToggle";
 import { NavLink } from "react-router-dom";
 import { Button } from "../styles/Button";
-import { useCartContext } from "../context/cart_context";
+import { changeQtyCart } from "../store/cart/actions";
+import { useDispatch } from "react-redux";
+import api from "../api";
 
 const AddToCart = ({ product }) => {
-  const { addToCart } = useCartContext();
+  const dispatch = useDispatch();
 
   const { _id } = product;
 
@@ -19,7 +21,17 @@ const AddToCart = ({ product }) => {
   };
 
   const setIncrease = () => {
-    amount < product.length ? setAmount(amount + 1) : setAmount(product.length);
+    setAmount(amount + 1);
+  };
+
+  const handleSubmit = () => {
+    api.putCart(product._id, amount).then(({ success, error }) => {
+      if (success) {
+        dispatch(changeQtyCart({ product, qty: amount }));
+      } else {
+        alert(error);
+      }
+    });
   };
 
   return (
@@ -48,9 +60,9 @@ const AddToCart = ({ product }) => {
         setIncrease={setIncrease}
       />
 
-      <NavLink to="/cart" onClick={() => addToCart(_id, product)}>
-        <Button className="btn">Add To Cart</Button>
-      </NavLink>
+      <Button onClick={handleSubmit} type="button" className="btn">
+        Add To Cart
+      </Button>
     </Wrapper>
   );
 };

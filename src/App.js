@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./About";
 import Home from "./Home";
 import Products from "./Products";
@@ -13,9 +13,15 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
-import AddCart from "./pages/AddCart";
+import AddProduct from "./pages/AddProduct";
+import { useSelector } from "react-redux";
+import { getIsLoggedIn } from "./store/user/selecters";
+import { NotLogin } from "./pages/NotLogin";
+import UpdateProduct from "./pages/UpdateProduct";
+import Dashboard from "./dashboard/Dashboard";
 
 const App = () => {
+  const isLoggedIn = useSelector(getIsLoggedIn);
   const theme = {
     colors: {
       heading: "rgb(24 24 29)",
@@ -43,26 +49,44 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <BrowserRouter>
         <GlobalStyle />
-        {/* Logi/Register */}
-        <Routes>
-          <Route path="/auth/sign-in" element={<SignInPage></SignInPage>} />
-          <Route path="/auth/sign-up" element={<SignUpPage></SignUpPage>} />
-        </Routes>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/product/:id" element={<SingleProduct />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/addCart" element={<AddCart />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-        <Footer />
-      </Router>
+        <div>
+          {isLoggedIn && <Header />}
+          <Routes>
+            {isLoggedIn ? (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/product/:id" element={<SingleProduct />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard/addProduct" element={<AddProduct />} />
+                <Route
+                  path="/dashboard/updateProduct/:id"
+                  element={<UpdateProduct />}
+                />
+                <Route path="*" element={<ErrorPage />} />
+              </>
+            ) : (
+              <>
+                <Route
+                  path="/auth/sign-in"
+                  element={<SignInPage></SignInPage>}
+                />
+                <Route
+                  path="/auth/sign-up"
+                  element={<SignUpPage></SignUpPage>}
+                />
+                <Route path="*" element={<NotLogin />} />
+              </>
+            )}
+          </Routes>
+          {isLoggedIn && <Footer />}
+        </div>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };

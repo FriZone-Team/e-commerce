@@ -14,7 +14,6 @@ import { apiPrefix } from "./config";
 import axios from "axios";
 
 const SingleProduct = () => {
-  const { products } = useProductContext();
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +89,7 @@ const SingleProduct = () => {
               </p>
             </div>
             <hr />
-            <AddToCart product={products} />
+            <AddToCart product={data} />
           </div>
         </div>
       </Container>

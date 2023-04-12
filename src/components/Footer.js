@@ -3,8 +3,13 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { Button } from "../styles/Button";
 import { FaDiscord, FaInstagram, FaYoutube } from "react-icons/fa";
+import IconLogout from "./icon/IconLogout";
 
 const Footer = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("user_loggedIn");
+    window.location.reload();
+  };
   return (
     <>
       <Wrapper>
@@ -27,7 +32,7 @@ const Footer = () => {
         <footer>
           <div className="container grid grid-four-column">
             <div className="footer-about">
-              <h3>Thapa Technical</h3>
+              <h3>Onion Store</h3>
               <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
             </div>
             <div className="footer-subscribe">
@@ -57,6 +62,18 @@ const Footer = () => {
             <div className="footer-contact">
               <h3>Call Us</h3>
               <h3>0948757151</h3>
+              <button
+                style={{
+                  color: "#fff",
+                  fontSize: "2rem",
+                  display: "flex",
+                  alignItems: "center",
+                  marginRight: "8px",
+                }}
+                onClick={handleLogout}
+              >
+                Logout (<IconLogout></IconLogout>)
+              </button>
             </div>
           </div>
 
@@ -64,7 +81,7 @@ const Footer = () => {
             <hr />
             <div className="container grid grid-two-column ">
               <p>
-                @{new Date().getFullYear()} ThapaTechnical. All Rights Reserved
+                @{new Date().getFullYear()} Onion Store. All Rights Reserved
               </p>
               <div>
                 <p>PRIVACY POLICY</p>

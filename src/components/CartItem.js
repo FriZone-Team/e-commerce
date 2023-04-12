@@ -2,27 +2,31 @@ import React, { useEffect, useState } from "react";
 import FormatPrice from "../Helpers/FormatPrice";
 import CartAmountToggle from "./CartAmountToggle";
 import { FaTrash } from "react-icons/fa";
-import { useCartContext } from "../context/cart_context";
 import { useParams } from "react-router-dom";
 import { apiPrefix } from "../config";
+import { addQtyCart, removeQtyCart, removeCart } from "../store/cart/actions";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import api from "../api";
 
-const CartItem = ({ amount }) => {
-  const { removeItem, setDecrease, setIncrement } = useCartContext();
+const CartItem = ({ product, qty }) => {
+  const dispatch = useDispatch();
 
   // data
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState({});
   const { id } = useParams();
 
-  const { _id, name, company, price, description, category, image } = data;
+  const { _id, name, company, price, description, category, image } = product;
 
-  useEffect(() => {
-    axios.get(`${apiPrefix}/products/${id}`).then((res) => {
-      setData(res.data);
-      setIsLoading(false);
+  const handleChange = (delta, done) => {
+    api.putCart(product._id, qty + delta).then(({ success, error }) => {
+      if (success) {
+        done();
+      } else {
+        alert(error);
+      }
     });
-  }, []);
+  };
 
   return (
     <div className="cart_heading grid grid-five-column">
@@ -45,20 +49,20 @@ const CartItem = ({ amount }) => {
 
       {/* Quantity  */}
       <CartAmountToggle
-        amount={amount}
-        setDecrease={() => setDecrease(_id)}
-        setIncrease={() => setIncrement(_id)}
+        amount={qty}
+        setDecrease={() => handleChange(-1, dispatch(removeQtyCart(product)))}
+        setIncrease={() => handleChange(+1, dispatch(addQtyCart(product)))}
       />
 
       {/* //Subtotal */}
       <div className="cart-hide">
         <p>
-          <FormatPrice price={price * amount} />
+          <FormatPrice price={price * qty} />
         </p>
       </div>
 
       <div>
-        <FaTrash className="remove_icon" onClick={() => removeItem(_id)} />
+        <FaTrash className="remove_icon" onClick={() => removeCart(product)} />
       </div>
     </div>
   );

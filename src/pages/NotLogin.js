@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 export const NotLogin = () => {
   const navigate = useNavigate();
 
-  useEffect(() => navigate("/auth/sign-in"), []);
+  useEffect(
+    () => navigate("/auth/sign-in?next=" + encodeURI(window.location.pathname)),
+    []
+  );
 
   return <></>;
 };

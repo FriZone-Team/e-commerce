@@ -3,11 +3,15 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
-import { useCartContext } from "../context/cart_context";
+import { getItemCount } from "../store/cart/selecters";
+import { useSelector } from "react-redux";
+import { getIsAdmin, getIsLoggedIn } from "../store/user/selecters";
 
 const Nav = () => {
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const isAdmin = useSelector(getIsAdmin);
+  const total_item = useSelector(getItemCount);
   const [menuIcon, setMenuIcon] = useState();
-  const { total_item } = useCartContext();
 
   const Nav = styled.nav`
     .navbar-lists {
@@ -203,15 +207,27 @@ const Nav = () => {
               Contact
             </NavLink>
           </li>
-          <li>
+          {isLoggedIn ? (
+            <li>
+              {isAdmin && (
+                <NavLink
+                  to="/dashboard"
+                  className="navbar-link "
+                  onClick={() => setMenuIcon(false)}
+                >
+                  Dashboard
+                </NavLink>
+              )}
+            </li>
+          ) : (
             <NavLink
-              to="/addCart"
+              to="/auth/sign-in"
               className="navbar-link "
               onClick={() => setMenuIcon(false)}
             >
-              Dashboard
+              Login
             </NavLink>
-          </li>
+          )}
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
               <FiShoppingCart className="cart-trolley" />

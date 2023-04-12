@@ -6,21 +6,22 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AppProvider } from "./context/productcontex";
 import { FilterContextProvider } from "./context/filter_context";
-import { CartProvider } from "./context/cart_context";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./components/utils/constants";
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <ThemeProvider theme={theme}>
-    <AppProvider>
-      <FilterContextProvider>
-        <CartProvider>
+    <Provider store={store}>
+      <AppProvider>
+        <FilterContextProvider>
           <App />
-        </CartProvider>
-      </FilterContextProvider>
-    </AppProvider>
+        </FilterContextProvider>
+      </AppProvider>
+    </Provider>
   </ThemeProvider>
 );
 

@@ -52,7 +52,24 @@ const FilterSection = () => {
 
       <div className="filter-category">
         <h3>Category</h3>
-        <div>
+        <form action="#">
+          <select
+            name="category"
+            id="category"
+            className="filter-company--select"
+            onClick={updateFilterValue}
+          >
+            {categoryData.map((curElem, index) => {
+              return (
+                <option key={index} value={curElem} name="category">
+                  {curElem}
+                </option>
+              );
+            })}
+          </select>
+        </form>
+
+        {/* <div>
           {categoryData.map((curElem, index) => {
             return (
               <button
@@ -67,7 +84,7 @@ const FilterSection = () => {
               </button>
             );
           })}
-        </div>
+        </div> */}
       </div>
 
       <div className="filter-company">
@@ -90,42 +107,6 @@ const FilterSection = () => {
           </select>
         </form>
       </div>
-
-      {/* <div className="filter-colors colors">
-        <h3>Colors</h3>
-
-        <div className="filter-color-style">
-          {colorsData.map((curColor, index) => {
-            if (curColor === "all") {
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  value={curColor}
-                  name="color"
-                  className="color-all--style"
-                  onClick={updateFilterValue}
-                >
-                  all
-                </button>
-              );
-            }
-            return (
-              <button
-                key={index}
-                type="button"
-                value={curColor}
-                name="color"
-                style={{ backgroundColor: curColor }}
-                className={color === curColor ? "btnStyle active" : "btnStyle"}
-                onClick={updateFilterValue}
-              >
-                {color === curColor ? <FaCheck className="checkStyle" /> : null}
-              </button>
-            );
-          })}
-        </div>
-      </div> */}
 
       <div className="filter_price">
         <h3>Price</h3>
@@ -199,6 +180,7 @@ const Wrapper = styled.section`
     font-size: 1.6rem;
     color: ${({ theme }) => theme.colors.text};
     text-transform: capitalize;
+    border: 1px solid #111;
   }
 
   .filter-color-style {

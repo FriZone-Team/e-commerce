@@ -1,56 +1,88 @@
-import axios from 'axios';
+import axios from "axios";
+import { apiPrefix } from "../config";
 
 export class Api {
-    constructor() {
-        this.client = axios.create({
-            baseURL: 'http://localhost:8080/api',
-            validateStatus: () => true,
-        });
-    }
+  constructor() {
+    this.client = axios.create({
+      baseURL: apiPrefix,
+      validateStatus: () => true,
+    });
+  }
 
-    async loginByPassword(usernameOrEmail, password) {
-        const res = await this.client.post('/auth/signin', {usernameOrEmail, password});
-        if (res.data.tokenType) {
-            const {tokenType, accessToken} = res.data;
-            this.client.defaults.headers['Authorization'] = `${tokenType} ${accessToken}`;
+  setToken(token) {
+    this.client.defaults.headers["Authorization"] = `Bearer ${token}`;
+  }
 
-            const user = await this.me();
-            return {
-                success: true,
-                token: {
-                    tokenType,
-                    accessToken,
-                },
-                user,
-            };
-        } else {
-            const {error, message} = res.data;
-            return {
-                success: false,
-                error: {
-                    code: error,
-                    message: message,
-                },
-            };
-        }
+  async loginByPassword(username, password) {
+    const res = await this.client.post("/login", {
+      username,
+      password,
+    });
+    if (res.data.token) {
+      const { token, user } = res.data;
+      this.setToken(token);
+      return {
+        success: true,
+        token,
+        user,
+      };
+    } else {
+      const { error } = res.data;
+      return {
+        success: false,
+        error,
+      };
     }
+  }
 
-    async logout() {
-        return;
-    }
+  async logout() {
+    return;
+  }
 
-    async me() {
-        const res = await this.client.get('/users/me');
-        return res.data;
-    }
+  async me() {
+    const res = await this.client.get("/me");
+    return res.data;
+  }
 
-    async getCards(username = null) {
-        const res = await this.client.get(username ? `/users/${username}/cards` : '/cards');
-        return res.data;
+  async addProduct(data) {
+    const res = await this.client.post("/products", data);
+    if (res.data.insertedId) {
+      return {
+        success: true,
+      };
+    } else {
+      const { error } = res.data;
+      return {
+        success: false,
+        error,
+      };
     }
+  }
 
-    async getExchanges(cardId = null) {
-        const res = await this.client.get(cardId ? `/cards/${cardId}/exchanges` : '/cards');
-        return res.data;
+  async putProduct(id, data) {
+    const res = await this.client.put(`/products/${id}`, data);
+    return res.data;
+  }
+
+  async putCart(productId, qty) {
+    const res = await this.client.post(`/carts/${productId}`, { qty });
+    return res.data;
+  }
+
+  async getCart() {
+    const res = await this.client.get("/carts");
+    return res.data;
+  }
+
+  async removeProduct(id) {
+    const res = await this.client.delete(`/products/${id}`);
+    if (res.data.deletedCount) {
+      return {
+        success: true,
+      };
+    } else {
+      const { error } = res.data;
+      alert(error);
     }
+  }
 }

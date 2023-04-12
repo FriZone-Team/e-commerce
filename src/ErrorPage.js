@@ -1,8 +1,31 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "./styles/Button";
+import { useSelector } from "react-redux";
+import { getIsLoggedIn } from "./store/user/selecters";
+import { useEffect } from "react";
 
 const ErrorPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isPageLogin = location.pathname === "/auth/sign-in";
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const isRedirecting = isPageLogin && isLoggedIn;
+
+  useEffect(() => {
+    if (isRedirecting) {
+      let next = new URLSearchParams(location.search).get("next");
+      if (!next) {
+        next = "/";
+      }
+      navigate(next);
+    }
+  }, []);
+
+  if (isRedirecting) {
+    return "Đang chuyển hướng ...";
+  }
+
   return (
     <Wrapper>
       <div className="container">

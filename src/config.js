@@ -1,1 +1,2 @@
-export const apiPrefix = "http://192.168.0.181:8080/api";
+export const apiPrefix = "https://114a-101-99-47-208.ngrok-free.app/api";
+// export const apiPrefix = "https://api.pujakaitem.com/api/products";
